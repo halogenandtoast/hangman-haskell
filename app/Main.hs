@@ -2,7 +2,9 @@ module Main where
 
 import System.Environment ( getArgs )
 import System.Random ( randomRIO )
-import Data.Char ( isAlpha )
+import Data.Char ( isAlpha
+                 , toLower
+                 )
 import Hangman.Game
 
 usage :: IO ()
@@ -43,7 +45,7 @@ getGuess = do
     letter <- ask "Guess a letter > "
     case letter of
          [c] -> if isAlpha c
-                   then return c
+                   then return $ toLower c
                    else error
          _ -> error
   where
