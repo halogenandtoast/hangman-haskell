@@ -66,7 +66,7 @@ mainLoop game = do
 run :: [String] -> IO ()
 run [filename] =  do
     mword <- chooseRandomWordInDictionary filename
-    maybe emptyDictionary (mainLoop . initialState) mword
+    maybe emptyDictionary (mainLoop . initialState) (map toLower <$> mword)
 run _ = usage
 
 
