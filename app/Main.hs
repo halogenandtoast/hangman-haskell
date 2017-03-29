@@ -52,27 +52,27 @@ getGuess = do
 
 mainLoop :: GameState -> IO ()
 mainLoop game = do
-  displayHiddenWord game
-  displayWrongGuesses game
-  guess <- getGuess
-  let game' = update guess game
-  if isFinished game'
-     then showResult game'
-     else mainLoop game'
+    displayHiddenWord game
+    displayWrongGuesses game
+    guess <- getGuess
+    let game' = update guess game
+    if isFinished game'
+       then showResult game'
+       else mainLoop game'
 
 
 run :: [String] -> IO ()
 run [filename] =  do
-  mword <- chooseRandomWordInDictionary filename
-  maybe emptyDictionary (mainLoop . initialState) mword
+    mword <- chooseRandomWordInDictionary filename
+    maybe emptyDictionary (mainLoop . initialState) mword
 run _ = usage
 
 
 sample :: [a] -> IO (Maybe a)
 sample [] = return Nothing
 sample xs = do
-  randomIndex <- randomRIO (0, length xs - 1)
-  return . Just $ xs !! randomIndex
+    randomIndex <- randomRIO (0, length xs - 1)
+    return . Just $ xs !! randomIndex
 
 
 chooseRandomWordInDictionary :: FilePath -> IO (Maybe String)
